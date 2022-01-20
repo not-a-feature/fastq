@@ -1,0 +1,6 @@
+os
+typing
+zipfile
+gzip
+tarfile
+miniFasta>=2.2
