@@ -13,6 +13,7 @@ License: GPL-3.0
 
 from miniFasta import fasta_object
 
+
 class fastq_object():
     def __init__(self, head: str, body: str, qstr: str):
         """
@@ -36,12 +37,7 @@ class fastq_object():
         """
         Magic method to allow fastq_object printing.
         """
-        out  = f'{self.head}\n'
-        out += f'{self.body}\n'
-        out += f'+\n'
-        out += f'{self.qstr}'
-
-        return out
+        return f'{self.head}\n{self.body}\n+\n{self.qstr}'
 
     def __repr__(self) -> str:
         """

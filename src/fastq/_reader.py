@@ -20,7 +20,8 @@ from typing import List
 def __maybeByteToStr(maybeByte) -> str:
     if isinstance(maybeByte, bytes):
         return maybeByte.decode('utf-8').rstrip()
-    return maybeByte.rstrip()
+    return str(maybeByte).rstrip()
+
 
 def read(file_path: str, upper: bool = True) -> List[fastq_object]:
     """
@@ -92,7 +93,7 @@ def read(file_path: str, upper: bool = True) -> List[fastq_object]:
                 # QString
                 maybeByte = next(h)
                 qstr = __maybeByteToStr(maybeByte)
-               
+
                 # append element
                 fastq_objects.append(fastq_object(head, body, qstr))
     return fastq_objects

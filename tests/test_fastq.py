@@ -2,14 +2,13 @@ import fastq as fq
 
 from os import path, remove
 from miniFasta import fasta_object
-import pytest
 
-test0 = [fq.fastq_object(head = "@M01967:23:000000000-AG773:1:1001:09936:3208 1:N:0:290",
-                        body = "GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT",
-                        qstr = "!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65"),
-        fq.fastq_object(head = "@Mini",
-                        body = "ATGC",
-                        qstr = "!!!!")]
+test0 = [fq.fastq_object(head="@M01967:23:000000000-AG773:1:1001:09936:3208 1:N:0:290",
+                         body="GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT",
+                         qstr="!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65"),
+         fq.fastq_object(head="@Mini",
+                         body="ATGC",
+                         qstr="!!!!")]
 
 
 def test_write_read():
@@ -54,6 +53,7 @@ ATGC
 !!!!
 """
 
+
 def test_len_fastq():
     assert len(fq.fastq_object("@test", "abc", "abc")) == 3
 
@@ -72,6 +72,7 @@ def test_eq_fastq():
     assert foa == fob
     assert not foa == foc
     assert not foc == foa
+
 
 def test_fastqTofasta():
     fa = fasta_object(">Test", "AGTC")
