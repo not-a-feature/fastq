@@ -1,12 +1,12 @@
 ![fastq](https://github.com/not-a-feature/fastq/raw/main/fastq.png)
 
-A simple FASTA toolbox for small to medium size projects without dependencies.
+A simple FASTQ toolbox for small to medium size projects without dependencies.
 
 ![Test Badge](https://github.com/not-a-feature/fastq/actions/workflows/tests.yml/badge.svg)
 ![Python Version Badge](https://img.shields.io/pypi/pyversions/fastq)
 ![Download Badge](https://img.shields.io/pypi/dm/fastq.svg)
 
-FASTA files are text-based files for storing nucleotide or amino acid sequences.
+FASTQ files are text-based files for storing nucleotide sequences and its corresponding quality scores.
 Reading such files is not particularly difficult, yet most off the shelf packages are overloaded with strange dependencies.
 
 fastq offers an alternative to this and brings many useful functions without relying on third party packages.
@@ -34,7 +34,7 @@ The five main parts are:
 
 
 ### fastq_object()
-The core component of fastq is the ```fastq_object()```. This object represents an FASTA entry and consists of a head and body.
+The core component of fastq is the ```fastq_object()```. This object represents an FASTQ entry and consists of a head and body.
 
 ```python 
 import fastq as fq
