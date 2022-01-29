@@ -27,6 +27,10 @@ pip install .
 fastq offers easy to use functions for fastq handling.
 The five main parts are:
 - fastq_object()
+    - head
+    - body
+    - qstr
+    - info
     - toFasta()
     - len() / str() / eq()
 - read()
@@ -34,7 +38,9 @@ The five main parts are:
 
 
 ### fastq_object()
-The core component of fastq is the ```fastq_object()```. This object represents an FASTQ entry and consists of a head and body.
+The core component of fastq is the ```fastq_object()```.
+
+This object represents an FASTQ entry and consists of a head and body.
 
 ```python 
 import fastq as fq
@@ -42,9 +48,27 @@ fo = fq.fastq_object("@M01967:23:0", "GATTTGGGG", "!''*((((*")
 print(fo.head) # @M01967:23:0
 print(fo.body) # GATTTGGGG
 print(fo.qstr) # !''*((((*
+```
 
-### Following functions are defined on a fastq_object():
+When `fastq_object(..).info` is requested, some summary statistics are computed and returned as dict.
+This computation is "lazy". I.e. the first query takes longer than the second.
+If the body or qstr is changed manually, info is automatically reset. 
 
+```python
+fo.info
+{'a_num': 1, 'g_num': 5,             # Absolute counts of ACTG
+ 't_num': 3, 'c_num': 0,             #
+ 'gc_content': 0.5555555555555556,   # Relatice GC content
+ 'at_content': 0.4444444444444444,   # Relative AT content
+ 'qual': 6.444444444444445,          # Mean quality (Illumina Encoding)            
+ 'qual_median': 7,                   # Median quality
+ 'qual_variance': 7.027777777777778, # Variance of quality
+ 'qual_min': 0, 'qual_max': 9}       # Min / Max quality
+```
+
+### Following functions are defined on a `fastq_object()`:
+
+```python
 str(fo) # will return:
 # @M01967:23:0
 # GATTTGGGG
