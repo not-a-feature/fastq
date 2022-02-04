@@ -25,7 +25,7 @@ pip install .
 
 ## How to use
 fastq offers easy to use functions for fastq handling.
-The five main parts are:
+The main parts are:
 - fastq_object()
     - head
     - body
