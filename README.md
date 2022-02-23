@@ -45,9 +45,9 @@ This object represents an FASTQ entry and consists of a head and body.
 ```python 
 import fastq as fq
 fo = fq.fastq_object("@M01967:23:0", "GATTTGGGG", "!''*((((*")
-print(fo.head) # @M01967:23:0
-print(fo.body) # GATTTGGGG
-print(fo.qstr) # !''*((((*
+fo.getHead() or fo.head # @M01967:23:0
+fo.getSeq()  or fo.body # GATTTGGGG
+fo.getQual() or fo.qstr # !''*((((*
 ```
 
 When `fastq_object(..).info` is requested, some summary statistics are computed and returned as dict.
@@ -55,7 +55,7 @@ This computation is "lazy". I.e. the first query takes longer than the second.
 If the body or qstr is changed manually, info is automatically reset. 
 
 ```python
-fo.info
+fo.getInfo() or fo.info
 {'a_num': 1, 'g_num': 5,             # Absolute counts of ACTG
  't_num': 3, 'c_num': 0,             #
  'gc_content': 0.5555555555555556,   # Relatice GC content
@@ -112,7 +112,7 @@ fq..write(fos, "new.fastq")
 
 ## License
 ```
-Copyright (C) 2021 by Jules Kreuer - @not_a_feature
+Copyright (C) 2022 by Jules Kreuer - @not_a_feature
 This piece of software is published unter the GNU General Public License v3.0
 TLDR:
 

@@ -8,9 +8,6 @@ Or:  https://pypi.org/project/fastq/
 License: GPL-3.0
 """
 
-# Usual translation dictionary according to
-# https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi#SG1
-
 from miniFasta import fasta_object
 from statistics import mean, median, variance
 from typing import Dict
@@ -38,6 +35,30 @@ class fastq_object():
 
         if not len(self.body) == len(self.qstr):
             raise RuntimeError("Quality-string has not the same length as the sequence.")
+
+    def getHead(self) -> str:
+        """
+        Getter method to return the head / sequence id.
+        """
+        return self.head
+
+    def getSeq(self) -> str:
+        """
+        Getter method to return the sequence.
+        """
+        return self.body
+
+    def getQual(self) -> str:
+        """
+        Getter method to return the quality string.
+        """
+        return self.qstr
+
+    def getInfo(self) -> Dict[str, float]:
+        """
+        Returnes summary statistics of this fastq_object as dict.
+        """
+        return self.info
 
     @property
     def body(self) -> str:

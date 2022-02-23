@@ -7,7 +7,8 @@ def test_fastq_info():
                          """!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI""")
 
     info = fo.info
-    print(info)
+    info2 = fo.getInfo()
+    assert info == info2
     assert info["a_num"] == 21
     assert info["c_num"] == 5
     assert info["g_num"] == 5
