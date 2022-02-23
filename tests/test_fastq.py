@@ -74,6 +74,13 @@ def test_eq_fastq():
     assert not foc == foa
 
 
+def test_getter():
+    fo = fq.fastq_object("@test", "abc", "!!!")
+    assert fo.head == fo.getHead()
+    assert fo.body == fo.getSeq()
+    assert fo.qstr == fo.getQual()
+
+
 def test_fastqTofasta():
     fa = fasta_object(">Test", "AGTC")
     fq_single = fq.fastq_object("@Test", "AGTC", "!!!!")
