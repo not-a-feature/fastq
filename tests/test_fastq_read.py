@@ -21,7 +21,7 @@ longBody = "".join(
 longQstr = "".join(
     [
         """!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN""",
-        """OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~""",
+        """OPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~""",
     ]
 )  # noqa: W605
 
