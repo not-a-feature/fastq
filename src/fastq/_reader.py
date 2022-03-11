@@ -19,7 +19,7 @@ from typing import List
 
 def __maybeByteToStr(maybeByte) -> str:
     if isinstance(maybeByte, bytes):
-        return maybeByte.decode('utf-8').rstrip()
+        return maybeByte.decode("utf-8").rstrip()
     return str(maybeByte).rstrip()
 
 
@@ -46,7 +46,7 @@ def read(file_path: str, upper: bool = True) -> List[fastq_object]:
     if file_type in ["zip", "tar", "gz"]:
         # .zip file
         if file_type == "zip":
-            zipHandler = ZipFile(file_path, 'r')
+            zipHandler = ZipFile(file_path, "r")
             # Create handler for every file in zip
             for inner_file in zipHandler.namelist():  # type:ignore
                 handlers.append(zipHandler.open(inner_file, "r"))  # type:ignore

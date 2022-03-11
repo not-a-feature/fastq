@@ -13,7 +13,7 @@ from statistics import mean, median, variance
 from typing import Dict
 
 
-class fastq_object():
+class fastq_object:
     def __init__(self, head: str, body: str, qstr: str):
         """
         Object to keep a fastq entry.
@@ -114,7 +114,7 @@ class fastq_object():
         """
         Magic method to allow fastq_object printing.
         """
-        return f'{self.head}\n{self.body}\n+\n{self.qstr}'
+        return f"{self.head}\n{self.body}\n+\n{self.qstr}"
 
     def __repr__(self) -> str:
         """
@@ -171,7 +171,7 @@ def info(fastq: fastq_object) -> Dict[str, float]:
     gc_content = (g_num + c_num) / len(body)
     at_content = 1 - gc_content
 
-    phred_scores = [ord(q)-33 for q in fastq.qstr]
+    phred_scores = [ord(q) - 33 for q in fastq.qstr]
 
     phred_scores.sort()
 
@@ -192,7 +192,7 @@ def info(fastq: fastq_object) -> Dict[str, float]:
         "qual_median": qual_median,
         "qual_variance": qual_var,
         "qual_min": qual_min,
-        "qual_max": qual_max
+        "qual_max": qual_max,
     }
 
     return summary

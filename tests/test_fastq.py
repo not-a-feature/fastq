@@ -3,19 +3,23 @@ import fastq as fq
 from os import path, remove
 from miniFasta import fasta_object
 
-test0 = [fq.fastq_object(head="@M01967:23:000000000-AG773:1:1001:09936:3208 1:N:0:290",
-                         body="GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT",
-                         qstr="!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65"),
-         fq.fastq_object(head="@Mini",
-                         body="ATGC",
-                         qstr="!!!!")]
+test0 = [
+    fq.fastq_object(
+        head="@M01967:23:000000000-AG773:1:1001:09936:3208 1:N:0:290",
+        body="GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT",
+        qstr="!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65",
+    ),
+    fq.fastq_object(head="@Mini", body="ATGC", qstr="!!!!"),
+]
 
 
 def test_write_read():
     file_path = path.join(path.dirname(__file__), "write_fastq_test.fastq")
 
-    fq_list = [fq.fastq_object("@AQ", "ACGTACGTCATG", "!-!-!-!-!-!-"),
-               fq.fastq_object("@PQ", "ACGTACGTCA", "LLLLLLLLLL")]
+    fq_list = [
+        fq.fastq_object("@AQ", "ACGTACGTCATG", "!-!-!-!-!-!-"),
+        fq.fastq_object("@PQ", "ACGTACGTCA", "LLLLLLLLLL"),
+    ]
 
     fq.write(fq_list, file_path)
 
@@ -43,7 +47,9 @@ def test_print_fastq_by_func(capsys):
 
     # check if it prints the sequences correctly
     c = capsys.readouterr()
-    assert c.out == """@M01967:23:000000000-AG773:1:1001:09936:3208 1:N:0:290
+    assert (
+        c.out
+        == """@M01967:23:000000000-AG773:1:1001:09936:3208 1:N:0:290
 GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 +
 !''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
@@ -52,6 +58,7 @@ ATGC
 +
 !!!!
 """
+    )
 
 
 def test_len_fastq():
