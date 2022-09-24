@@ -136,6 +136,12 @@ class fastq_object:
         """
         return len(self.body)
 
+    def __hash__(self):
+        """
+        Magic method to allow hash() on fastq_objects. 
+        """
+        return hash(self.head, self.body, self.qstr)
+        
     def toFasta(self) -> fasta_object:
         """
         Converts fastq_object to fasta_object of miniFasta package.
