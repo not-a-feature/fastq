@@ -140,7 +140,7 @@ class fastq_object:
         """
         Magic method to allow hash() on fastq_objects. 
         """
-        return hash(self.head, self.body, self.qstr)
+        return hash(self.head + self.body + self.qstr)
         
     def toFasta(self) -> fasta_object:
         """
