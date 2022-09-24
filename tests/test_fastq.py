@@ -80,6 +80,13 @@ def test_eq_fastq():
     assert not foa == foc
     assert not foc == foa
 
+def test_hash_fastq():
+    foa = fq.fastq_object("@test", "abc", "!!!")
+    fob = fq.fastq_object("@test", "abc", "!!!")
+    foc = fq.fastq_object("@different header", "abc", "!!!")
+
+    assert hash(foa) == hash(fob)
+    assert not hash(fob) == hash(foc)
 
 def test_getter():
     fo = fq.fastq_object("@test", "abc", "!!!")
