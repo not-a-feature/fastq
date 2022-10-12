@@ -66,7 +66,7 @@ class fastq_object:
         """
         return self.info
 
-    @property
+    @property  # type: ignore
     def body(self) -> str:
         """
         Property function to return body.
@@ -82,7 +82,7 @@ class fastq_object:
         self._info = dict()  # type: Dict[str, float]
         self._body = value
 
-    @property
+    @property  # type: ignore
     def qstr(self) -> str:
         """
         Property function to return qstr.
