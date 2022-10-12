@@ -3,4 +3,4 @@ typing
 zipfile
 gzip
 tarfile
-miniFasta>=2.2
+miniFasta>=3.0.1
