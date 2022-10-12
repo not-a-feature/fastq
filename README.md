@@ -38,6 +38,28 @@ The main parts are:
     - toFasta()
     - len() / str() / eq()
 
+## Reading FASTQ files
+`read()` is a fastq reader which is able to handle compressed and non-compressed files.
+Following compressions are supported: zip, tar, tar.gz, gz. If multiple files are stored inside an archive, all files are read.
+This function returns a iterator of fastq_objects.
+
+```python
+fos = fq.read("dolphin.fastq") # Iterator of fastq entries.
+fos = list(fos) # Cast to list
+fos = fq.read("reads.tar.gz") # Is able to handle compressed files.
+```
+
+## Writing FASTA files
+`write()` is a basic fastq writer.
+It takes a single or a list of fastq_objects and writes it to the given path.
+
+The file is usually overwritten. Set `write(fo, "path.fastq", mode="a")` to append file.
+
+```python
+fos = fq.read("dolphin.fastq") # Iterator of fastq entries
+fos = list(fos)
+fq.write(fos, "new.fastq")
+```
 
 ### fastq_object()
 The core component of fastq is the ```fastq_object()```.
@@ -68,7 +90,7 @@ fo.getInfo() or fo.info
  'qual_min': 0, 'qual_max': 9}       # Min / Max quality
 ```
 
-### Following functions are defined on a `fastq_object()`:
+### Following methods are defined on a `fastq_object()`:
 
 ```python
 str(fo) # will return:
@@ -82,6 +104,7 @@ str(fo) # will return:
 len(fo) # will return 10, the length of the body
 
 # Equality
+# Checks only the body, not the header and not the quality string
 print(fo == fo) # True
 
 fo_b = fq.fastq_object("@different header", "GATTTGGGG", "!!!!!!!!!")
@@ -89,29 +112,6 @@ print(fo == fo_b) # True
 
 fo_c = fq..fastq_object(">Different Body", "ZZZZ", "!--!")
 print(fo == fo_c) # False
-```
-
-## Reading FASTQ files
-`read()` is a fastq reader which is able to handle compressed and non-compressed files.
-Following compressions are supported: zip, tar, tar.gz, gz. If multiple files are stored inside an archive, all files are read.
-This function returns a iterator of fastq_objects.
-
-```python
-fos = fq.read("dolphin.fastq") # Iterator of fastq entries.
-fos = list(fos) # Cast to list
-fos = fq.read("reads.tar.gz") # Is able to handle compressed files.
-```
-
-## Writing FASTA files
-`write()` is a basic fastq writer.
-It takes a single or a list of fastq_objects and writes it to the given path.
-
-The file is usually overwritten. Set `write(fo, "path.fastq", mode="a")` to append file.
-
-```python
-fos = fq.read("dolphin.fastq") # Iterator of fastq entries
-fos = list(fos)
-fq.write(fos, "new.fastq")
 ```
 
 ## License
