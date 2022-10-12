@@ -11,9 +11,15 @@ License: GPL-3.0
 from miniFasta import fasta_object
 from statistics import mean, median, variance
 from typing import Dict
+from dataclasses import dataclass
 
 
+@dataclass
 class fastq_object:
+    head: str
+    body: str
+    qstr: str
+
     def __init__(self, head: str, body: str, qstr: str):
         """
         Object to keep a fastq entry.
@@ -116,12 +122,6 @@ class fastq_object:
         """
         return f"{self.head}\n{self.body}\n+\n{self.qstr}"
 
-    def __repr__(self) -> str:
-        """
-        Magic method to allow printing of fastq_object representation.
-        """
-        return f'fastq_object("{self.head}", "{self.body}", """{self.qstr}""")'
-
     def __eq__(self, o) -> bool:
         """
         Magic method to allow equality check on fastq_objects.
@@ -138,10 +138,10 @@ class fastq_object:
 
     def __hash__(self):
         """
-        Magic method to allow hash() on fastq_objects. 
+        Magic method to allow hash() on fastq_objects.
         """
         return hash(self.head + self.body + self.qstr)
-        
+
     def toFasta(self) -> fasta_object:
         """
         Converts fastq_object to fasta_object of miniFasta package.
@@ -169,10 +169,10 @@ def info(fastq: fastq_object) -> Dict[str, float]:
     This assumes that the quality score is encoded using the ACII + 33 formula (Illumina Encoding).
     """
     body = fastq.body.upper()
-    a_num = sum([1 if b == "A" else 0 for b in body])
-    g_num = sum([1 if b == "G" else 0 for b in body])
-    t_num = sum([1 if b == "T" else 0 for b in body])
-    c_num = sum([1 if b == "C" else 0 for b in body])
+    a_num = sum((1 if b == "A" else 0 for b in body))
+    g_num = sum((1 if b == "G" else 0 for b in body))
+    t_num = sum((1 if b == "T" else 0 for b in body))
+    c_num = sum((1 if b == "C" else 0 for b in body))
 
     gc_content = (g_num + c_num) / len(body)
     at_content = 1 - gc_content

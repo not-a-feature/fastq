@@ -53,4 +53,4 @@ multi.extend(test1)
     ],
 )
 def test_read(file_path, expected):
-    assert fq.read(file_path) == expected
+    assert list(fq.read(file_path)) == expected
