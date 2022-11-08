@@ -14,7 +14,7 @@ import gzip
 import tarfile
 
 from os import path
-from typing import List
+from typing import Iterator
 
 
 def __maybeByteToStr(maybeByte) -> str:
@@ -23,7 +23,7 @@ def __maybeByteToStr(maybeByte) -> str:
     return str(maybeByte).rstrip()
 
 
-def read(file_path: str, upper: bool = True) -> List[fastq_object]:
+def read(file_path: str, upper: bool = True) -> Iterator[fastq_object]:
     """
     Reads a compressed or non-compressed fastq file and returns a list of fastq_objects.
     Zip, tar, gz, tar.gz files are supported.
@@ -41,36 +41,35 @@ def read(file_path: str, upper: bool = True) -> List[fastq_object]:
         raise FileNotFoundError("Fastq File not found!")
 
     handlers = []
-    file_type = file_path.split(".")[-1]
+    file_type = path.splitext(file_path)[1]
 
-    if file_type in ["zip", "tar", "gz"]:
-        # .zip file
-        if file_type == "zip":
-            zipHandler = ZipFile(file_path, "r")
-            # Create handler for every file in zip
-            for inner_file in zipHandler.namelist():  # type:ignore
-                handlers.append(zipHandler.open(inner_file, "r"))  # type:ignore
-        # .tar file
-        elif file_type == "tar":
+    # .zip file
+    if file_type == ".zip":
+        zipHandler = ZipFile(file_path, "r")
+        # Create handler for every file in zip
+        for inner_file in zipHandler.namelist():  # type:ignore
+            handlers.append(zipHandler.open(inner_file, "r"))  # type:ignore
+    # .tar file
+    elif file_type == ".tar":
+        tarHandler = tarfile.open(file_path, "r")
+        # Create handler for every file in tar
+        for inner_file in tarHandler.getmembers():  # type:ignore
+            handlers.append(tarHandler.extractfile(inner_file))  # type:ignore
+    # .gz file
+    elif file_type == ".gz":
+        # tar.gz file
+        inner_file_type = path.splitext(path.splitext(file_path)[0])[1]
+        if inner_file_type == ".tar":
+            # Create handler for every file in tar.gz
             tarHandler = tarfile.open(file_path, "r")
-            # Create handler for every file in tar
             for inner_file in tarHandler.getmembers():  # type:ignore
                 handlers.append(tarHandler.extractfile(inner_file))  # type:ignore
-        # .gz file
-        elif file_type == "gz":
-            # tar.gz file
-            if file_path.split(".")[-2] == "tar":
-                # Create handler for every file in tar.gz
-                tarHandler = tarfile.open(file_path, "r")
-                for inner_file in tarHandler.getmembers():  # type:ignore
-                    handlers.append(tarHandler.extractfile(inner_file))  # type:ignore
-            else:
-                # .gz file
-                handlers = [gzip.open(file_path, "r")]  # type:ignore
+        else:
+            # .gz file
+            handlers = [gzip.open(file_path, "r")]  # type:ignore
     else:
         handlers = [open(file_path, "r")]  # type:ignore
 
-    fastq_objects = []
     for h in handlers:
         with h:
             head = ""
@@ -95,5 +94,4 @@ def read(file_path: str, upper: bool = True) -> List[fastq_object]:
                 qstr = __maybeByteToStr(maybeByte)
 
                 # append element
-                fastq_objects.append(fastq_object(head, body, qstr))
-    return fastq_objects
+                yield fastq_object(head, body, qstr)

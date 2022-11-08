@@ -23,7 +23,7 @@ def test_write_read():
 
     fq.write(fq_list, file_path)
 
-    fq_read = fq.read(file_path)
+    fq_read = list(fq.read(file_path))
     remove(file_path)
     assert fq_list == fq_read
 
@@ -35,14 +35,14 @@ def test_write_byself():
 
     fq_single.write(file_path)
 
-    fo_read = fq.read(file_path)
+    fo_read = list(fq.read(file_path))
     remove(file_path)
     assert [fq_single] == fo_read
 
 
 def test_print_fastq_by_func(capsys):
     file_path = path.join(path.dirname(__file__), "test_data/test0.fastq")
-    fq_list = fq.read(file_path)
+    fq_list = list(fq.read(file_path))
     fq.print_fastq(fq_list)
 
     # check if it prints the sequences correctly
@@ -80,6 +80,7 @@ def test_eq_fastq():
     assert not foa == foc
     assert not foc == foa
 
+
 def test_hash_fastq():
     foa = fq.fastq_object("@test", "abc", "!!!")
     fob = fq.fastq_object("@test", "abc", "!!!")
@@ -87,6 +88,7 @@ def test_hash_fastq():
 
     assert hash(foa) == hash(fob)
     assert not hash(fob) == hash(foc)
+
 
 def test_getter():
     fo = fq.fastq_object("@test", "abc", "!!!")
