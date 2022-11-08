@@ -1,6 +1,7 @@
 ![fastq](https://github.com/not-a-feature/fastq/raw/main/fastq.png)
 
 A simple FASTQ toolbox for small to medium size projects without dependencies.
+
 [![DOI](https://zenodo.org/badge/450063403.svg)](https://zenodo.org/badge/latestdoi/450063403)
 ![Test Badge](https://github.com/not-a-feature/fastq/actions/workflows/tests.yml/badge.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
