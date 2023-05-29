@@ -1,6 +1,6 @@
-![fastq](https://github.com/not-a-feature/fastq/raw/main/fastq.png)
+<img src="https://github.com/not-a-feature/fastq/raw/main/fastq.png" width=300px alt="fastq logo"></img>
 
-A simple FASTQ toolbox for small to medium size projects without dependencies.
+A simple FASTQ toolbox for small to medium size projects without strange dependencies.
 
 [![DOI](https://zenodo.org/badge/450063403.svg)](https://zenodo.org/badge/latestdoi/450063403)
 ![Test Badge](https://github.com/not-a-feature/fastq/actions/workflows/tests.yml/badge.svg)
@@ -45,21 +45,10 @@ Following compressions are supported: zip, tar, tar.gz, gz. If multiple files ar
 This function returns a iterator of fastq_objects.
 
 ```python
+import fastq as fq
 fos = fq.read("dolphin.fastq") # Iterator of fastq entries.
 fos = list(fos) # Cast to list
 fos = fq.read("reads.tar.gz") # Is able to handle compressed files.
-```
-
-## Writing FASTA files
-`write()` is a basic fastq writer.
-It takes a single or a list of fastq_objects and writes it to the given path.
-
-The file is usually overwritten. Set `write(fo, "path.fastq", mode="a")` to append file.
-
-```python
-fos = fq.read("dolphin.fastq") # Iterator of fastq entries
-fos = list(fos)
-fq.write(fos, "new.fastq")
 ```
 
 ### fastq_object()
@@ -77,13 +66,13 @@ fo.getQual() or fo.qstr # !''*((((*
 
 When `fastq_object(..).info` is requested, some summary statistics are computed and returned as dict.
 This computation is "lazy". I.e. the first query takes longer than the second.
-If the body or qstr is changed manually, info is automatically reset.
+If the body or qstr is changed, info is automatically reset.
 
 ```python
 fo.getInfo() or fo.info
-{'a_num': 1, 'g_num': 5,             # Absolute counts of ACTG
+{'a_num': 1, 'g_num': 5,             # Absolute counts of AGTC
  't_num': 3, 'c_num': 0,             #
- 'gc_content': 0.5555555555555556,   # Relatice GC content
+ 'gc_content': 0.5555555555555556,   # Relative GC content
  'at_content': 0.4444444444444444,   # Relative AT content
  'qual': 6.444444444444445,          # Mean quality (Illumina Encoding)
  'qual_median': 7,                   # Median quality
@@ -115,9 +104,22 @@ fo_c = fq..fastq_object(">Different Body", "ZZZZ", "!--!")
 print(fo == fo_c) # False
 ```
 
+## Writing FASTQ files
+`write()` is a basic fastq writer.
+It takes a single or a list of fastq_objects and writes it to the given path.
+
+The file is usually overwritten. Set `write(fo, "path.fastq", mode="a")` to append file.
+
+```python
+fos = fq.read("dolphin.fastq") # Iterator of fastq entries
+fos = list(fos)
+
+fq.write(fos, "new.fastq")
+```
+
 ## License
 ```
-Copyright (C) 2022 by Jules Kreuer - @not_a_feature
+Copyright (C) 2023 by Jules Kreuer - @not_a_feature
 This piece of software is published unter the GNU General Public License v3.0
 TLDR:
 
@@ -132,5 +134,4 @@ TLDR:
 Go to [LICENSE.md](https://github.com/not-a-feature/fastq/blob/main/LICENSE) to see the full version.
 
 ## Dependencies
-In addition to packages included in Python 3, this piece of software uses 3rd-party software packages for development purposes that are not required in the published version.
-Go to [DEPENDENCIES.md](https://github.com/not-a-feature/fastq/blob/main/DEPENDENCIES.md) to see all dependencies and licenses.
+In addition to packages included in Python 3, this package uses miniFASTA, a basic fastq reader.
