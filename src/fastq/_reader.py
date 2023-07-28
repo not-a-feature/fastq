@@ -87,8 +87,9 @@ def read(file_path: str, upper: bool = True) -> Iterator[fastq_object]:
                 maybeByte = next(h)
                 body = __maybeByteToStr(maybeByte)
 
-                # Skip quality identifyer
+                # Skip quality identifier
                 maybeByte = next(h)
+
                 # QString
                 maybeByte = next(h)
                 qstr = __maybeByteToStr(maybeByte)
