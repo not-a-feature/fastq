@@ -15,7 +15,7 @@ except ModuleNotFoundError:
     from ....miniFasta.src.miniFasta import fasta_object
 
 from statistics import mean, median, variance
-from typing import Dict
+from typing import Dict, List, Union
 from dataclasses import dataclass
 
 
@@ -28,10 +28,14 @@ class fastq_object:
     def __init__(self, head: str, body: str, qstr: str):
         """
         Object to keep a fastq entry.
-        Input:
-            head:    str, head of fastq entry.
-            body:    str, body of fastq entry.
-            qstr:    str, quality string.
+        Parameters
+        ----------
+            head: str
+                Head of fastq entry.
+            body: str
+                Body of fastq entry.
+            qstr: str
+                Quality string.
         """
         if head.startswith("@"):
             self.head = head
@@ -155,9 +159,14 @@ class fastq_object:
         return fasta_object(self.head[1:], self.body)
 
 
-def print_fastq(fastq) -> None:
+def print_fastq(fastq: Union[List[fastq_object], fastq_object]) -> None:
     """
     Prints a single or a list of fastq_objects.
+
+    Parameters
+    ----------
+        fastq: List[fastq_object] or fastq_object
+            Objects to print.
     """
 
     if not isinstance(fastq, list):
@@ -172,6 +181,16 @@ def info(fastq: fastq_object) -> Dict[str, float]:
     """
     Computes summary statistics of a fastq file.
     This assumes that the quality score is encoded using the ACII + 33 formula (Illumina Encoding).
+
+    Parameters
+    ----------
+        fastq: fastq_object
+            Object to analyze.
+
+    Returns
+    -------
+        summary: dict
+            Summary statistics.
     """
     body = fastq.body.upper()
     a_num = sum((1 if b == "A" else 0 for b in body))
