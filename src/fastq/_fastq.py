@@ -12,7 +12,7 @@ try:
     from miniFasta import fasta_object
 except ModuleNotFoundError:
     # Import as submodule of the bfx suite.
-    from ....miniFasta.src.miniFasta import fasta_object
+    from ....miniFasta.src.miniFasta import fasta_object  # type: ignore
 
 from statistics import mean, median, variance
 from typing import Dict, List, Union
