@@ -14,6 +14,11 @@ class fastq_object(superFQ):
     def write(self, file_path: str, mode="w"):
         """
         Writes this fastq_object to a file.
+
+        Parameters
+        ----------
+            file_path: str
+                String or FilePath to the file.
         """
         write(self, file_path, mode)
 
@@ -22,6 +27,11 @@ def write(fastq_pairs, file_path: str, mode="w") -> None:
     """
     Writes a list of fastq_objects or a single one to a file.
     Takes fastq_objects as input.
+
+    Parameters
+    ----------
+        file_path: str
+            String or FilePath to the file.
     """
 
     if not isinstance(fastq_pairs, list):

@@ -30,11 +30,14 @@ def read(file_path: str, upper: bool = True) -> Iterator[fastq_object]:
     Attention: Encoding characters (backslash) will work under certain conditions.
 
     Input:
-        file_path: str, path to folder / file
-        upper: bool, cast sequence to upper-case letters.
+        file_path: str
+            Path to folder / file
+        upper: bool, default: True
+            Cast sequence to upper-case letters.
 
     Returns:
-        fastq_objects: list of fastq_object
+        fastq_objects: List[fastq_object]
+            List of fastq_object read from the file.
     """
 
     if not path.isfile(file_path):
