@@ -8,7 +8,12 @@ Or:  https://pypi.org/project/fastq/
 License: GPL-3.0
 """
 
-from miniFasta import fasta_object
+try:
+    from miniFasta import fasta_object
+except ModuleNotFoundError:
+    # Import as submodule of the bfx suite.
+    from ....miniFasta.src.miniFasta import fasta_object
+
 from statistics import mean, median, variance
 from typing import Dict
 from dataclasses import dataclass
