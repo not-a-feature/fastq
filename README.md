@@ -118,8 +118,9 @@ fq.write(fos, "new.fastq")
 ```
 
 ## License
-```
-Copyright (C) 2023 by Jules Kreuer - @not_a_feature
+
+Copyright (C) 2024 by Jules Kreuer - @not_a_feature
+
 This piece of software is published unter the GNU General Public License v3.0
 TLDR:
 
@@ -130,8 +131,5 @@ TLDR:
 | ✓ Modification   | Same license                 |             |
 | ✓ Patent use     | State changes                |             |
 | ✓ Private use    |                              |             |
-```
-Go to [LICENSE.md](https://github.com/not-a-feature/fastq/blob/main/LICENSE) to see the full version.
 
-## Dependencies
-In addition to packages included in Python 3, this package uses miniFASTA, a basic fastq reader.
+Go to [LICENSE.md](https://github.com/not-a-feature/fastq/blob/main/LICENSE) to see the full version.
