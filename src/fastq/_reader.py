@@ -29,13 +29,15 @@ def read(file_path: str, upper: bool = True) -> Iterator[fastq_object]:
     Zip, tar, gz, tar.gz files are supported.
     Attention: Encoding characters (backslash) will work under certain conditions.
 
-    Input:
+    Parameters
+    ----------
         file_path: str
             Path to folder / file
         upper: bool, default: True
             Cast sequence to upper-case letters.
 
-    Returns:
+    Returns
+    -------
         fastq_objects: List[fastq_object]
             List of fastq_object read from the file.
     """
